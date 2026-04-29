@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bunnet Magic World - Bilgi</title>
+<!-- Favicon Eklendi -->
+<link rel="icon" href="icon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0614;
+    color: #e8dff5;
+    font-family: 'Raleway', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .stars {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle var(--d) ease-in-out infinite alternate;
+  }
+
+  @keyframes twinkle {
+    0% { opacity: 0.1; transform: scale(1); }
+    100% { opacity: 0.9; transform: scale(1.4); }
+  }
+
+  .glow-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .orb1 { width: 400px; height: 400px; background: rgba(120,40,200,0.25); top: -100px; left: -100px; }
+  .orb2 { width: 350px; height: 350px; background: rgba(40,10,120,0.3); bottom: -80px; right: -80px; }
+  .orb3 { width: 300px; height: 300px; background: rgba(200,80,120,0.15); top: 40%; left: 50%; transform: translateX(-50%); }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  /* Geri Dön Butonu Tasarımı */
+  .back-nav {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+  }
+
+  .back-btn {
+    text-decoration: none;
+    color: #a78bfa;
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 1px solid rgba(167,139,250,0.3);
+    border-radius: 8px;
+    background: rgba(124,58,237,0.05);
+    transition: all 0.3s ease;
+  }
+
+  .back-btn:hover {
+    background: rgba(124,58,237,0.15);
+    border-color: rgba(167,139,250,0.6);
+    transform: translateX(-5px);
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 60px;
+    animation: fadeDown 1s ease both;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .magic-badge {
+    display: inline-block;
+    font-family: 'Raleway', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #c084fc;
+    border: 1px solid rgba(192,132,252,0.4);
+    padding: 6px 20px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    background: rgba(192,132,252,0.07);
+  }
+
+  .game-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(32px, 6vw, 64px);
+    font-weight: 900;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #e879f9, #a78bfa, #60a5fa, #e879f9);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
+    margin-bottom: 8px;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+  }
+
+  .subtitle-line {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #a78bfa, transparent);
+    margin: 20px auto;
+  }
+
+  .tagline {
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    color: #a78bfa;
+    letter-spacing: 2px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(167,139,250,0.2);
+    border-radius: 16px;
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(192,132,252,0.5);
+    box-shadow: 0 12px 40px rgba(120,40,200,0.2);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #a78bfa, transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .card:hover::before { opacity: 1; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card:nth-child(1) { animation-delay: 0.2s; }
+  .card:nth-child(2) { animation-delay: 0.35s; }
+  .card:nth-child(3) { animation-delay: 0.5s; }
+  .card:nth-child(4) { animation-delay: 0.65s; }
+
+  .card-icon {
+    font-size: 28px;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .card-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #7c3aed;
+    margin-bottom: 8px;
+  }
+
+  .card-value {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #f3e8ff;
+    line-height: 1.3;
+  }
+
+  .card-sub {
+    font-size: 13px;
+    color: rgba(200,180,240,0.6);
+    margin-top: 6px;
+    font-weight: 300;
+  }
+
+  .characters-card {
+    grid-column: 1 / -1;
+    padding: 32px;
+  }
+
+  .characters-title {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #7c3aed;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .characters-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(124,58,237,0.3);
+  }
+
+  .char-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+  }
+
+  .char-item {
+    background: rgba(124,58,237,0.08);
+    border: 1px solid rgba(124,58,237,0.2);
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-align: center;
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .char-item:hover {
+    background: rgba(124,58,237,0.16);
+    border-color: rgba(192,132,252,0.5);
+  }
+
+  .char-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    margin: 0 auto 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .char-name {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #e8dff5;
+  }
+
+  .avatar-purple { background: linear-gradient(135deg, #7c3aed, #4c1d95); }
+  .avatar-coral  { background: linear-gradient(135deg, #e11d48, #9f1239); }
+  .avatar-teal   { background: linear-gradient(135deg, #0891b2, #164e63); }
+  .avatar-amber  { background: linear-gradient(135deg, #d97706, #92400e); }
+
+  .tiktok-card .card-value a {
+    color: #c084fc;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .tiktok-card .card-value a:hover { color: #e879f9; }
+
+  .footer {
+    text-align: center;
+    margin-top: 60px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(124,58,237,0.2);
+    animation: fadeUp 1s ease 1s both;
+  }
+
+  .footer-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 18px;
+    color: #a78bfa;
+    margin-bottom: 8px;
+  }
+
+  .footer-sub {
+    font-size: 12px;
+    color: rgba(167,139,250,0.5);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: rgba(124,58,237,0.25);
+  }
+
+  .divider-gem {
+    width: 8px; height: 8px;
+    background: #7c3aed;
+    transform: rotate(45deg);
+    border-radius: 1px;
+  }
+
+  /* DEV STATUS */
+  .dev-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(234,179,8,0.1);
+    border: 1px solid rgba(234,179,8,0.3);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 12px;
+    color: #fbbf24;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  .dot-pulse {
+    width: 8px; height: 8px;
+    background: #fbbf24;
+    border-radius: 50%;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes flicker {
+    0%, 100% { opacity: 1; }
+    92% { opacity: 1; }
+    93% { opacity: 0.3; }
+    94% { opacity: 1; }
+    96% { opacity: 0.5; }
+    97% { opacity: 1; }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  .countdown {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .cd-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(232,121,249,0.08);
+    border: 1px solid rgba(232,121,249,0.25);
+    border-radius: 12px;
+    padding: 14px 20px;
+    min-width: 72px;
+  }
+
+  .cd-num {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #e879f9;
+    line-height: 1;
+  }
+
+  .cd-lbl {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(232,121,249,0.6);
+    margin-top: 6px;
+  }
+
+  .cd-sep {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 24px;
+    color: rgba(232,121,249,0.4);
+    margin-bottom: 16px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Stars -->
+<div class="stars" id="stars"></div>
+
+<!-- Glow orbs -->
+<div class="glow-orb orb1"></div>
+<div class="glow-orb orb2"></div>
+<div class="glow-orb orb3"></div>
+
+<div class="container">
+
+  <!-- Navigasyon - Geri Dön -->
+  <div class="back-nav">
+    <a href="index.html" class="back-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      ANA MENÜ
+    </a>
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="magic-badge">✦ Oyun Bilgileri ✦</div>
+    <h1 class="game-title">Bunnet<br>Magic World</h1>
+    <div class="subtitle-line"></div>
+    <p class="tagline">A Magical Adventure Awaits</p>
+    <br>
+    <span class="dev-badge">
+      <span class="dot-pulse"></span>
+      Geliştirme Sürecinde
+    </span>
+  </div>
+
+  <!-- Main Info Grid -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-gem"></div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="grid">
+    <!-- Game Name -->
+    <div class="card">
+      <span class="card-icon">🎮</span>
+      <div class="card-label">Oyun Adı</div>
+      <div class="card-value">Bunnet Magic World</div>
+      <div class="card-sub">Büyülü bir macera oyunu</div>
+    </div>
+
+    <!-- Creator -->
+    <div class="card">
+      <span class="card-icon">👤</span>
+      <div class="card-label">Yaratıcı</div>
+      <div class="card-value">Muhammed Ali Kaçar</div>
+      <div class="card-sub">Oyun Geliştiricisi</div>
+    </div>
+
+    <!-- Engine -->
+    <div class="card">
+      <span class="card-icon">⚙️</span>
+      <div class="card-label">Oyun Motoru</div>
+      <div class="card-value">Clickteam Fusion 2.5</div>
+      <div class="card-sub">Geliştirme platformu</div>
+    </div>
+
+    <!-- TikTok -->
+    <div class="card tiktok-card">
+      <span class="card-icon">🎵</span>
+      <div class="card-label">TikTok Sayfası</div>
+      <div class="card-value">
+        <a href="https://www.tiktok.com/@birfnaffan83" target="_blank">@birfnaffan83</a>
+      </div>
+      <div class="card-sub">Güncel haberler için takip et</div>
+    </div>
+
+    <!-- Release Date -->
+    <div class="card release-card" style="grid-column: 1 / -1;">
+      <span class="card-icon">📅</span>
+      <div class="card-label">Çıkış Tarihi</div>
+      <div class="card-value" style="font-size:26px; color:#e879f9;">06 Haziran 2026</div>
+      <div class="card-sub">Yakında geliyor — geri sayım başladı!</div>
+      <div class="countdown" id="countdown">
+        <div class="cd-box"><span class="cd-num" id="cd-gun">--</span><span class="cd-lbl">Gün</span></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-box"><span class="cd-num" id="cd-saat">--</span><span class="cd-lbl">Saat</span></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-box"><span class="cd-num" id="cd-dak">--</span><span class="cd-lbl">Dakika</span></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-box"><span class="cd-num" id="cd-sn">--</span><span class="cd-lbl">Saniye</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Preview Image -->
+  <div style="margin-bottom: 20px; border-radius: 16px; overflow: hidden; border: 1px solid rgba(167,139,250,0.2);">
+    <div style="background:#000;width:100%;aspect-ratio:16/7;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,#0d0d0d 0%,#000 100%);"></div>
+      <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.08) 0px,rgba(0,0,0,0.08) 1px,transparent 1px,transparent 3px);pointer-events:none;"></div>
+      <p style="position:relative;font-family:'Cinzel',serif;font-size:clamp(11px,1.8vw,20px);font-weight:600;color:rgba(255,255,255,0.65);letter-spacing:8px;text-transform:uppercase;margin-bottom:16px;">Bunnet Magic World</p>
+      <p style="position:relative;font-family:'Cinzel Decorative',serif;font-size:clamp(32px,7vw,80px);font-weight:900;color:#fff;letter-spacing:6px;animation:flicker 3s ease-in-out infinite;">YAKINDA!</p>
+    </div>
+  </div>
+
+  <!-- Characters -->
+  <div class="card characters-card" style="animation-delay: 0.8s;">
+    <div class="characters-title">Oyun Karakterleri</div>
+    <div class="char-grid">
+      <div class="char-item">
+        <div class="char-avatar avatar-purple">B</div>
+        <div class="char-name">Bunnet</div>
+      </div>
+      <div class="char-item">
+        <div class="char-avatar avatar-coral">R</div>
+        <div class="char-name">Raff</div>
+      </div>
+      <div class="char-item">
+        <div class="char-avatar avatar-teal">J</div>
+        <div class="char-name">Jerry</div>
+      </div>
+      <div class="char-item">
+        <div class="char-avatar avatar-amber">D</div>
+        <div class="char-name">Dreynnut</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-title">Bunnet Magic World</div>
+    <div class="footer-sub">© 2024 Muhammed Ali Kaçar · Tüm Hakları Saklıdır</div>
+  </div>
+
+</div>
+
+<script>
+  // Countdown
+  const target = new Date('2026-06-06T00:00:00');
+  function updateCountdown() {
+    const now = new Date();
+    const diff = target - now;
+    if (diff <= 0) {
+      document.getElementById('countdown').innerHTML = '<span style="font-family:Cinzel Decorative,serif;font-size:22px;color:#e879f9;">🎉 Oyun Çıktı!</span>';
+      return;
+    }
+    const gun = Math.floor(diff / 86400000);
+    const saat = Math.floor((diff % 86400000) / 3600000);
+    const dak = Math.floor((diff % 3600000) / 60000);
+    const sn = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-gun').textContent = String(gun).padStart(2,'0');
+    document.getElementById('cd-saat').textContent = String(saat).padStart(2,'0');
+    document.getElementById('cd-dak').textContent = String(dak).padStart(2,'0');
+    document.getElementById('cd-sn').textContent = String(sn).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 120; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    s.style.cssText = `
+      width:${size}px; height:${size}px;
+      top:${Math.random()*100}%;
+      left:${Math.random()*100}%;
+      --d:${(Math.random()*3+1.5).toFixed(1)}s;
+      animation-delay:${(Math.random()*3).toFixed(1)}s;
+      opacity:${Math.random()*0.5+0.1};
+    `;
+    starsContainer.appendChild(s);
+  }
+</script>
+</body>
+</html>
