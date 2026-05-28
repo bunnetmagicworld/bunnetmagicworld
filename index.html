@@ -248,7 +248,7 @@
 
   .char-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 16px;
   }
 
@@ -291,6 +291,7 @@
   .avatar-coral  { background: linear-gradient(135deg, #e11d48, #9f1239); }
   .avatar-teal   { background: linear-gradient(135deg, #0891b2, #164e63); }
   .avatar-amber  { background: linear-gradient(135deg, #d97706, #92400e); }
+  .avatar-emerald { background: linear-gradient(135deg, #10b981, #065f46); }
 
   .tiktok-card .card-value a {
     color: #c084fc;
@@ -362,15 +363,6 @@
     background: #fbbf24;
     border-radius: 50%;
     animation: pulse 1.5s ease-in-out infinite;
-  }
-
-  @keyframes flicker {
-    0%, 100% { opacity: 1; }
-    92% { opacity: 1; }
-    93% { opacity: 0.3; }
-    94% { opacity: 1; }
-    96% { opacity: 0.5; }
-    97% { opacity: 1; }
   }
 
   @keyframes pulse {
@@ -500,7 +492,7 @@
     <div class="card release-card" style="grid-column: 1 / -1;">
       <span class="card-icon">📅</span>
       <div class="card-label">Çıkış Tarihi</div>
-      <div class="card-value" style="font-size:26px; color:#e879f9;">06 Haziran 2026</div>
+      <div class="card-value" style="font-size:26px; color:#e879f9;">26 Haziran 2026</div>
       <div class="card-sub">Yakında geliyor — geri sayım başladı!</div>
       <div class="countdown" id="countdown">
         <div class="cd-box"><span class="cd-num" id="cd-gun">--</span><span class="cd-lbl">Gün</span></div>
@@ -520,7 +512,8 @@
       <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,#0d0d0d 0%,#000 100%);"></div>
       <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.08) 0px,rgba(0,0,0,0.08) 1px,transparent 1px,transparent 3px);pointer-events:none;"></div>
       <p style="position:relative;font-family:'Cinzel',serif;font-size:clamp(11px,1.8vw,20px);font-weight:600;color:rgba(255,255,255,0.65);letter-spacing:8px;text-transform:uppercase;margin-bottom:16px;">Bunnet Magic World</p>
-      <p style="position:relative;font-family:'Cinzel Decorative',serif;font-size:clamp(32px,7vw,80px);font-weight:900;color:#fff;letter-spacing:6px;animation:flicker 3s ease-in-out infinite;">YAKINDA!</p>
+      <!-- "flicker" animasyonunu buradaki style'dan sildim -->
+      <p style="position:relative;font-family:'Cinzel Decorative',serif;font-size:clamp(32px,7vw,80px);font-weight:900;color:#fff;letter-spacing:6px;">YAKINDA!</p>
     </div>
   </div>
 
@@ -544,6 +537,11 @@
         <div class="char-avatar avatar-amber">D</div>
         <div class="char-name">Dreynnut</div>
       </div>
+      <!-- Yeni Gizemli Karakter Eklendi -->
+      <div class="char-item">
+        <div class="char-avatar avatar-emerald">?</div>
+        <div class="char-name">...</div>
+      </div>
     </div>
   </div>
 
@@ -556,8 +554,8 @@
 </div>
 
 <script>
-  // Countdown
-  const target = new Date('2026-06-06T00:00:00');
+  // Geri Sayım Hedef Tarihi: 26 Haziran 2026
+  const target = new Date('2026-06-26T00:00:00');
   function updateCountdown() {
     const now = new Date();
     const diff = target - now;
